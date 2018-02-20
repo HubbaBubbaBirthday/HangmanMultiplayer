@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Hangman Multiplayer</string>
+    <string name="Game_Desc">Welcome to Hangman\nMovie-Mania</string>
+    <string name="Play_Button">Enter for Fun</string>
+    <string name="first_pl">First Player:</string>
+    <string name="second_pl">Second Player:</string>
+    <string name="first_pl_name">Enter First player Name</string>
+    <string name="second_pl_name">Enter Second Player Name</string>
+    <string name="Pass_Phone">Pass the Phone to First player and Click Next</string>
+    <string name="Next">Next</string>
+    <string name="Movie_Name">Enter The Movie</string>
+    <string name="Pass_Phone_2">Click Next and Pass the Phone to Second Player to Guess the Movie</string>
+</resources>
