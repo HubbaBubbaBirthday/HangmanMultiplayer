@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parent"
     tools:context="com.blitz.hangmanmultiplayer.GuessMovie">
 
     <TextView
@@ -18,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <ImageButton
         android:id="@+id/image_A2"
         style="@style/Animation.AppCompat.Tooltip"
@@ -29,7 +31,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/A2"
+        android:src="@drawable/a2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,7 +46,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/B2"
+        android:src="@drawable/b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -59,7 +61,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/C2"
+        android:src="@drawable/c2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,7 +76,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/D2"
+        android:src="@drawable/d2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -89,7 +91,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/E2"
+        android:src="@drawable/e2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -104,7 +106,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/F2"
+        android:src="@drawable/f2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -119,7 +121,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/G2"
+        android:src="@drawable/g2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -134,7 +136,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/H2"
+        android:src="@drawable/h2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -149,7 +151,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/I2"
+        android:src="@drawable/i2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -164,7 +166,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/J2"
+        android:src="@drawable/j2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -179,7 +181,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/K2"
+        android:src="@drawable/k2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -194,7 +196,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/L2"
+        android:src="@drawable/l2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -209,7 +211,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/M2"
+        android:src="@drawable/m2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -224,7 +226,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/N2"
+        android:src="@drawable/n2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -239,7 +241,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/O2"
+        android:src="@drawable/o2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -254,7 +256,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/P2"
+        android:src="@drawable/p2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -269,7 +271,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Q2"
+        android:src="@drawable/q2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -284,7 +286,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/R2"
+        android:src="@drawable/r2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -299,7 +301,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/S2"
+        android:src="@drawable/s2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -314,7 +316,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/T2"
+        android:src="@drawable/t2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -329,7 +331,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/U2"
+        android:src="@drawable/u2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -344,7 +346,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/V2"
+        android:src="@drawable/v2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -359,7 +361,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/W2"
+        android:src="@drawable/w2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -374,7 +376,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/X2"
+        android:src="@drawable/x2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -389,7 +391,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Y2"
+        android:src="@drawable/y2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -404,7 +406,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Z2"
+        android:src="@drawable/z2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -419,7 +421,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/A1"
+        android:src="@drawable/a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -434,7 +436,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/B1"
+        android:src="@drawable/b1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -449,7 +451,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/C1"
+        android:src="@drawable/c1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -464,7 +466,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/D1"
+        android:src="@drawable/d1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -479,7 +481,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/E1"
+        android:src="@drawable/e1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -494,7 +496,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/F1"
+        android:src="@drawable/f1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -509,7 +511,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/G1"
+        android:src="@drawable/g1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -524,7 +526,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/H1"
+        android:src="@drawable/h1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -539,7 +541,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/I1"
+        android:src="@drawable/i1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -554,7 +556,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/J1"
+        android:src="@drawable/j1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -569,7 +571,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/K1"
+        android:src="@drawable/k1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -584,7 +586,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/L1"
+        android:src="@drawable/l1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -599,7 +601,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/M1"
+        android:src="@drawable/m1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -614,7 +616,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/N1"
+        android:src="@drawable/n1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -629,7 +631,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/O1"
+        android:src="@drawable/o1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -644,7 +646,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/P1"
+        android:src="@drawable/p1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -659,7 +661,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Q1"
+        android:src="@drawable/q1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -674,7 +676,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/R1"
+        android:src="@drawable/r1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -689,7 +691,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/S1"
+        android:src="@drawable/s1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -704,7 +706,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/T1"
+        android:src="@drawable/t1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -719,7 +721,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/U1"
+        android:src="@drawable/u1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -734,7 +736,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/V1"
+        android:src="@drawable/v1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -749,7 +751,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/W1"
+        android:src="@drawable/w1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -764,7 +766,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/X1"
+        android:src="@drawable/x1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -779,7 +781,7 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Y1"
+        android:src="@drawable/y1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -794,7 +796,8 @@
         android:cropToPadding="false"
         android:elevation="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Z1"
+        android:src="@drawable/z1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+        -->
 </android.support.constraint.ConstraintLayout>
