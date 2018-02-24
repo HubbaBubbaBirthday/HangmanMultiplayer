@@ -11,4 +11,6 @@
     <string name="Movie_Name">Enter The Movie</string>
     <string name="Pass_Phone_2">Click Next and Pass the Phone to Second Player to Guess the Movie</string>
     <string name="A">A</string>
+    <string name="Win">You Win!!!</string>
+    <string name="Lose">Ahh! Better Luck Next Time</string>
 </resources>

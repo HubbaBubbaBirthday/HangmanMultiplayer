@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".PlayerDetails" />
         <activity android:name=".EnterMovieName" />
-        <activity android:name=".GuessMovie"></activity>
+        <activity android:name=".GuessMovie" />
+        <activity android:name=".ResultPopActivity" android:theme="@style/PopUpStyle"></activity>
     </application>
 
 </manifest>

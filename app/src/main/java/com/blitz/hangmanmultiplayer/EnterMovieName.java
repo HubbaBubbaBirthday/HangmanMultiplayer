@@ -19,12 +19,19 @@ public class EnterMovieName extends AppCompatActivity implements OnClickListener
 
         movieName = findViewById(R.id.enter_movie);
 
+
+
     }
 
     @Override
     public void onClick(View view) {
         Intent guess_movie = new Intent( this, GuessMovie.class );
-        guess_movie.putExtra("Movie_Name", movieName.getText().toString());
-        startActivity(guess_movie);
+        if( movieName.getText().toString().length() == 0 )
+        {
+            movieName.setError( "Movie Name is Required!" );
+        }else {
+            guess_movie.putExtra("Movie_Name", movieName.getText().toString());
+            startActivity(guess_movie);
+        }
     }
 }
