@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 public class GuessMovie extends AppCompatActivity {
 
-    public ConstraintLayout constraintLayout;
     int numberOfGuesses = 0;
     int maxGuesses = 6;
     int correctGuesses = 0;
@@ -56,7 +55,8 @@ public class GuessMovie extends AppCompatActivity {
 
         // Split the Movie Into Single Characters
         // and add in Constraint layout
-        constraintLayout = new ConstraintLayout(this);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayoutMain);
 
         for (int j = 0; j <= movieName.length() - 1; j++) {
 
@@ -74,7 +74,6 @@ public class GuessMovie extends AppCompatActivity {
 
             if (movieCharVal.equals(" ")) {
                 movieChar.setVisibility(View.INVISIBLE);
-                //movieChar.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
             }
 
             movieChar.setTextSize(15);
@@ -198,6 +197,7 @@ public class GuessMovie extends AppCompatActivity {
     View.OnClickListener handleOnClick(final ImageButton button) {
         return new View.OnClickListener() {
             public void onClick(View v) {
+                ConstraintLayout constraintLayout = findViewById(R.id.constraintLayoutMain);
                 numberOfGuesses++;
                 System.out.println("Clicked" + v.getId());
                 View clickedButton = findViewById(v.getId());
