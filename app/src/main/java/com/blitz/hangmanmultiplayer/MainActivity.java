@@ -1,131 +1,125 @@
 package com.blitz.hangmanmultiplayer;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.LoginStatusCallback;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, OnClickListener {
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
-    private static final String TAG = "SignInActivity";
-    private static final int RC_SIGN_IN = 9001;
-    private ProgressDialog mConnectionProgressDialog;
-    private GoogleApiClient mGoogleApiClient;
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+
+    CallbackManager callbackManager;
+    private static final String EMAIL = "email";
+    private static final String TAG = "Facebook_Sign_In";
+    boolean loggedIn = AccessToken.getCurrentAccessToken() == null;
+    LoginButton loginButton;
+    Profile profile;
+    private boolean publishPermissionsRequested = false;
+    private LoginResult readResultSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("onCreate");
         setContentView(R.layout.activity_main);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        //FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        loginWithFB(this);
+    }
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this /* Context */)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        mConnectionProgressDialog = new ProgressDialog(this);
-        mConnectionProgressDialog.setMessage("Signing in...");
+        profile = Profile.getCurrentProfile();
+        System.out.println("Profile:" + profile.getName() );
+
+                super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        switch (view.getId()){
             case R.id.play_button:
-                signIn();
-                break;
+                Intent details = new Intent(this, PlayerDetails.class);
+                startActivity(details);
+            case R.id.login_button:
+                System.out.println("Clicked Facebook");
+
         }
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
-    }
+    public void loginWithFB(final MainActivity mainActivity){
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+                        System.out.println("Successful Login" + AccessToken.getCurrentAccessToken());
+                        if(!publishPermissionsRequested){
+                            publishPermissionsRequested = true;
+                            readResultSuccess = loginResult;
+                            LoginManager.getInstance().logInWithPublishPermissions(mainActivity, Arrays.asList("publish_actions"));
+                            return;
+                        }
+                        onFacebookLoginSuccessful(loginResult);
+                    }
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
-    // [END onActivityResult]
+                    @Override
+                    public void onCancel() {
+                        System.out.println("Cancel Login" + AccessToken.getCurrentAccessToken());
+                        if(publishPermissionsRequested && readResultSuccess != null)
+                            onFacebookLoginSuccessful(readResultSuccess);
+                    }
 
-    // [START handleSignInResult]
-    private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            GoogleSignInAccount account = result.getSignInAccount();
-
-            Intent sendData = new Intent( this, PlayerDetails.class );
-
-            String givenName, email_id, dp_url;
-            givenName = account.getGivenName();
-            email_id = account.getEmail();
-            dp_url = account.getPhotoUrl().toString();
-            sendData.putExtra("username", givenName);
-            sendData.putExtra("email_id",  "Email: " + email_id);
-            sendData.putExtra("dp_url", dp_url);
-            startActivity( sendData);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-
-    private void signIn() {
-        Log.v(TAG, "Tapped sign in");
-
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly. We can try and retrieve an
-            // authentication code.
-            Log.d(TAG, "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Checking sign in state...");
-            progressDialog.show();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-                    progressDialog.dismiss();
-                    handleSignInResult(googleSignInResult);
+                    @Override
+                    public void onError(FacebookException exception) {
+                        System.out.println("Error Login" + AccessToken.getCurrentAccessToken());
+                        if(publishPermissionsRequested && readResultSuccess != null)
+                            onFacebookLoginSuccessful(readResultSuccess);
+                    }
                 }
-            });
-        }
+        );
+        LoginManager.getInstance()
+                .logInWithReadPermissions(this,Arrays.asList("public_profile"));
+    }
 
-        //mConnectionProgressDialog.show();
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-
-        //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private void onFacebookLoginSuccessful(LoginResult loginResult) {
+        String currentUserId = profile.getId();
+        String app_Id = "206115383302010";
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/" + app_Id + "/scores",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        System.out.println("Scores: " + response);
+                    }
+                }
+        ).executeAsync();
     }
 }

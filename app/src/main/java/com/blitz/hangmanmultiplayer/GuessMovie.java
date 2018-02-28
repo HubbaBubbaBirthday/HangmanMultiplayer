@@ -11,13 +11,23 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookRequestError;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.appevents.internal.AppEventsLoggerUtility;
+import com.facebook.login.LoginManager;
+
 public class GuessMovie extends AppCompatActivity {
 
+    public ConstraintLayout constraintLayout;
     int numberOfGuesses = 0;
     int maxGuesses = 6;
     int correctGuesses = 0;
@@ -55,8 +65,7 @@ public class GuessMovie extends AppCompatActivity {
 
         // Split the Movie Into Single Characters
         // and add in Constraint layout
-
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayoutMain);
+        constraintLayout = new ConstraintLayout(this);
 
         for (int j = 0; j <= movieName.length() - 1; j++) {
 
@@ -74,6 +83,7 @@ public class GuessMovie extends AppCompatActivity {
 
             if (movieCharVal.equals(" ")) {
                 movieChar.setVisibility(View.INVISIBLE);
+                //movieChar.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
             }
 
             movieChar.setTextSize(15);
@@ -197,7 +207,6 @@ public class GuessMovie extends AppCompatActivity {
     View.OnClickListener handleOnClick(final ImageButton button) {
         return new View.OnClickListener() {
             public void onClick(View v) {
-                ConstraintLayout constraintLayout = findViewById(R.id.constraintLayoutMain);
                 numberOfGuesses++;
                 System.out.println("Clicked" + v.getId());
                 View clickedButton = findViewById(v.getId());
@@ -229,6 +238,44 @@ public class GuessMovie extends AppCompatActivity {
 
                 if (correctGuesses == uniqueChar) {
                     resultPop.putExtra("Result", "Winner" );
+
+                    Bundle fbParams = new Bundle();
+                    fbParams.putString("score", String.valueOf((maxGuesses - numberOfGuesses + correctGuesses)*50));
+                    GraphRequest postScoreRequest = new GraphRequest(AccessToken.getCurrentAccessToken(),
+                            "me/scores",
+                            fbParams,
+                            HttpMethod.POST,
+                            new GraphRequest.Callback() {
+                                @Override
+                                public void onCompleted(GraphResponse response) {
+                                    FacebookRequestError error = response.getError();
+                                    if (error != null) {
+                                        Log.e("Guess Movie", "Posting Score to Facebook failed: " + error.getErrorMessage());
+                                    } else {
+                                        Log.i("Guess Movie", "Score posted successfully to Facebook");
+                                    }
+                                }
+                            });
+                    GraphRequest.executeBatchAsync(postScoreRequest);
+
+                    /*
+                    new GraphRequest(
+                            AccessToken.getCurrentAccessToken(),
+                            "/me/scores",
+                            null,
+                            HttpMethod.POST,
+                            new GraphRequest.Callback() {
+                                public void onCompleted(GraphResponse response) {
+                                    System.out.println("Scores: " + response);
+                                }
+                            }
+                    ).executeAsync();*/
+
+                   /* var scoreData =
+                            new Dictionary<string, string>() {{"score", score.ToString()}};
+
+                    FB.API ("/me/scores", HttpMethod.POST, APICallback, scoreData);*/
+
                     startActivity(resultPop);
                 }
                 if (numberOfGuesses - correctGuesses >= maxGuesses) {
