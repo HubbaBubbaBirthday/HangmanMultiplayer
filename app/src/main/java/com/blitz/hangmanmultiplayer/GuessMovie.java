@@ -22,8 +22,10 @@ import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
-import com.facebook.appevents.internal.AppEventsLoggerUtility;
-import com.facebook.login.LoginManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GuessMovie extends AppCompatActivity {
 
@@ -32,7 +34,7 @@ public class GuessMovie extends AppCompatActivity {
     int maxGuesses = 6;
     int correctGuesses = 0;
     int uniqueChar = 0;
-
+    int prevScore = 0;
     Intent resultPop;
 
     public static int uniqueCharacters(String movie) {
@@ -207,8 +209,9 @@ public class GuessMovie extends AppCompatActivity {
     View.OnClickListener handleOnClick(final ImageButton button) {
         return new View.OnClickListener() {
             public void onClick(View v) {
+
                 numberOfGuesses++;
-                System.out.println("Clicked" + v.getId());
+
                 View clickedButton = findViewById(v.getId());
                 //View replaceButton = findViewById(v.getId()+26);
                 clickedButton.setVisibility(View.INVISIBLE);
@@ -217,7 +220,7 @@ public class GuessMovie extends AppCompatActivity {
                 Intent movie = getIntent();
                 String movieName = movie.getStringExtra("Movie_Name");
                 uniqueChar = uniqueCharacters(movieName);
-                System.out.println("Uniq:" + uniqueChar);
+
                 boolean valuePresent = false;
                 for (int val = 0; val < movieName.length(); val++) {
                     Button newChild = (Button) constraintLayout.getChildAt(val);
@@ -239,8 +242,46 @@ public class GuessMovie extends AppCompatActivity {
                 if (correctGuesses == uniqueChar) {
                     resultPop.putExtra("Result", "Winner" );
 
+                    final GraphRequest graphRequest = new GraphRequest(
+                            AccessToken.getCurrentAccessToken(),
+                            "/me/scores",
+                            null,
+                            HttpMethod.GET,
+                            new GraphRequest.Callback() {
+                                public void onCompleted(GraphResponse response) {
+
+                                    try {
+
+                                        JSONObject json = response.getJSONObject();
+                                        JSONArray values = json.getJSONArray("data");
+
+                                        prevScore = values.getJSONObject(0).getInt("score");
+                                        System.out.println("Previous Score:" + prevScore);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                    );
+
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GraphResponse gResponse = graphRequest.executeAndWait();
+                        }
+                    });
+                    t.start();
+                    try {
+                        t.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+//                    GraphRequestAsyncTask graphRequestAsyncTask = graphRequest.executeAsync();
+
                     Bundle fbParams = new Bundle();
-                    fbParams.putString("score", String.valueOf((maxGuesses - numberOfGuesses + correctGuesses)*50));
+
+                    fbParams.putString("score", String.valueOf((prevScore + (maxGuesses - numberOfGuesses + correctGuesses)*50)));
                     GraphRequest postScoreRequest = new GraphRequest(AccessToken.getCurrentAccessToken(),
                             "me/scores",
                             fbParams,
@@ -257,25 +298,6 @@ public class GuessMovie extends AppCompatActivity {
                                 }
                             });
                     GraphRequest.executeBatchAsync(postScoreRequest);
-
-                    /*
-                    new GraphRequest(
-                            AccessToken.getCurrentAccessToken(),
-                            "/me/scores",
-                            null,
-                            HttpMethod.POST,
-                            new GraphRequest.Callback() {
-                                public void onCompleted(GraphResponse response) {
-                                    System.out.println("Scores: " + response);
-                                }
-                            }
-                    ).executeAsync();*/
-
-                   /* var scoreData =
-                            new Dictionary<string, string>() {{"score", score.ToString()}};
-
-                    FB.API ("/me/scores", HttpMethod.POST, APICallback, scoreData);*/
-
                     startActivity(resultPop);
                 }
                 if (numberOfGuesses - correctGuesses >= maxGuesses) {

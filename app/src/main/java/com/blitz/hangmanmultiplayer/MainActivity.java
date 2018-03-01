@@ -1,13 +1,8 @@
 package com.blitz.hangmanmultiplayer;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -15,18 +10,18 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
-import com.facebook.LoginStatusCallback;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
@@ -104,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 }
         );
         LoginManager.getInstance()
-                .logInWithReadPermissions(this,Arrays.asList("public_profile"));
+                .logInWithReadPermissions(this,Arrays.asList("public_profile", "user_friends"));
     }
 
     private void onFacebookLoginSuccessful(LoginResult loginResult) {
         String currentUserId = profile.getId();
-        String app_Id = "206115383302010";
+        String app_Id = AccessToken.getCurrentAccessToken().getApplicationId();
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "/" + app_Id + "/scores",
@@ -117,7 +112,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-                        System.out.println("Scores: " + response);
+
+                        try {
+
+                            JSONObject json = response.getJSONObject();
+                            JSONArray values = json.getJSONArray("data");
+
+                            System.out.println("Player Current Score: " + values.getJSONObject(0).getInt("score"));
+                        } catch (JSONException e) {
+                            System.out.println("No scores for Player yet");
+                            e.printStackTrace();
+                        }
                     }
                 }
         ).executeAsync();
